@@ -70,8 +70,9 @@ The first step is to download an example CEL file (which was obtained via Gene E
 
 <<>>=
 celFilePath = "Vignette_Example.CEL.gz"
-download.file("http://www.ncbi.nlm.nih.gov/geosuppl/?acc=GSM555237&file=GSM555237.CEL.gz", celFilePath)
+download.file("http://www.ncbi.nlm.nih.gov/geo/download/?acc=GSM555237&format=file&file=GSM555237%2ECEL%2Egz", celFilePath)
 @
+%download.file("http://www.ncbi.nlm.nih.gov/geosuppl/?acc=GSM555237&file=GSM555237.CEL.gz", celFilePath)
 %download.file("http://tinyurl.com/c675lkz", celFilePath)
 
 To normalize the file, the \Rfunction{SCAN} function must be invoked. This function requires one mandatory parameter: a path specifying the location of the file to be normalized.
