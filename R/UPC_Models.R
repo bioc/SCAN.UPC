@@ -88,6 +88,10 @@ UPC_nn = function(y,l=NULL,gc=NULL,conv=0.001,q=1) {
      
       #E-step
       gamma <- (pi_h*dnorm(y1,cbind(1,1,X[,-1])%*%beta,sqrt(sigma2_1)))/(pi_h*dnorm(y1,cbind(1,1,X[,-1])%*%beta,sqrt(sigma2_1))+(1-pi_h)*dnorm(y1,cbind(1,0,X[,-1])%*%beta,sqrt(sigma2_2)))
+
+      # Occasionally a NaN gamma value will be returned. We set these to zero by default.
+      gamma[is.nan(gamma)] = 0
+
       x=cbind(1,gamma,X[,-1])
      
       #M-step
