@@ -50,6 +50,8 @@ InstallBrainArrayPackage = function(celFilePath, version, organism, annotationSo
 {
   platform = cleancdfname(read.celfile.header(celFilePath, info="full")$cdfName)
   platform = sub("cdf", "", platform)
+  platform = sub("stv1", "st", platform)
+  platform = sub("stv2", "st", platform)
 
   packageName=paste(platform, organism, annotationSource, "probe", sep="")
 
