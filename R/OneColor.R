@@ -168,13 +168,17 @@ processCelFile = function(celFilePath, annotationPackageName, probeSummaryPackag
 
     annotationPackageName = affyExpressionFS@annotation
     if (is.na(exonArrayTarget) && (grepl("hugene", annotationPackageName)))
-      exonArrayTarget = "probeset"
+      #exonArrayTarget = "probeset"
+      exonArrayTarget = "core"
 
-#    data = oligo::getProbeInfo(affyExpressionFS, field=c("fid", "x", "y", "man_fsetid", "seq"), probeType="pm", target=exonArrayTarget)
+    if (is.na(exonArrayTarget))
+    {
+      probeInfo = oligo::getProbeInfo(affyExpressionFS, field=c("x", "y"), probeType="pm")
+    } else {
+      probeInfo = oligo::getProbeInfo(affyExpressionFS, field=c("x", "y"), probeType="pm", target=exonArrayTarget)
+    }
 
-    xCoord = getX(affyExpressionFS, type="pm")
-    yCoord = getY(affyExpressionFS, type="pm")
-    xyCoord = paste(xCoord, yCoord, sep="_")
+    xyCoord = paste(probeInfo$x, probeInfo$y, sep="_")
 
     if (is.na(exonArrayTarget))
     {
@@ -274,7 +278,7 @@ processCelFile = function(celFilePath, annotationPackageName, probeSummaryPackag
     data = as.matrix(merge(data, probeSummaryData, by.x=3, by.y=ncol(probeSummaryData), sort=FALSE)[,c(2,3,1,8)])
   }
 
-  # A trim value of 0.3 seems to work better than 0.1 for hugene arrays
+  # A trim value of 0.3 seems to work better than 0.1 for HuGene 1.0 arrays (possibly others)
   return(as.matrix(tapply(as.numeric(data[,1]), data[,4], FUN=mean, trim=0.1)))
 }
 
