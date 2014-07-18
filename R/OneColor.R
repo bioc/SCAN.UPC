@@ -81,7 +81,7 @@ processCelFiles = function(celFilePattern, outFilePath=NA, intervalN=50000, conv
     celFilePattern = downloadFromGEO(celFilePattern)
 
   fileNamePattern = sub("\\-", "\\\\-", glob2rx(basename(celFilePattern)))
-  fileNamePattern = sub("\\+", "\\\\+", basename(fileNamePattern))
+  fileNamePattern = sub("\\+", "\\\\+", fileNamePattern)
   celFilePaths = list.files(path=dirname(celFilePattern), pattern=fileNamePattern, full.names=TRUE)
 
   if (length(celFilePaths) == 0)
