@@ -152,10 +152,10 @@ createOutputDir = function(dirPath, verbose=TRUE)
 
 processCelFile = function(celFilePath, annotationPackageName, probeSummaryPackage, UPC, probeLevelOutDirPath, exonArrayTarget, intervalN, nbins=25, binsize=5000, convThreshold=0.01, verbose=TRUE)
 {
-  probeLevelOutFilePath = NA
-  if (!is.na(probeLevelOutDirPath))
-    probeLevelOutFilePath = paste(probeLevelOutDirPath, "/", basename(celFilePath), ".txt", sep="")
-
+#  probeLevelOutFilePath = NA
+#  if (!is.na(probeLevelOutDirPath))
+#    probeLevelOutFilePath = paste(probeLevelOutDirPath, "/", basename(celFilePath), ".txt", sep="")
+#
 #  if (!is.na(probeLevelOutFilePath) && file.exists(probeLevelOutFilePath))
 #  {
 #    data = read.table(probeLevelOutFilePath, sep="\t", stringsAsFactors=FALSE, header=FALSE, row.names=NULL)
