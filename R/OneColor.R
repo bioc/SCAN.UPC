@@ -152,9 +152,9 @@ createOutputDir = function(dirPath, verbose=TRUE)
 
 processCelFile = function(celFilePath, annotationPackageName, probeSummaryPackage, UPC, probeLevelOutDirPath, exonArrayTarget, intervalN, nbins=25, binsize=5000, convThreshold=0.01, verbose=TRUE)
 {
-#  probeLevelOutFilePath = NA
-#  if (!is.na(probeLevelOutDirPath))
-#    probeLevelOutFilePath = paste(probeLevelOutDirPath, "/", basename(celFilePath), ".txt", sep="")
+  probeLevelOutFilePath = NA
+  if (!is.na(probeLevelOutDirPath))
+    probeLevelOutFilePath = paste(probeLevelOutDirPath, "/", basename(celFilePath), ".txt", sep="")
 
 #  if (!is.na(probeLevelOutFilePath) && file.exists(probeLevelOutFilePath))
 #  {
@@ -177,8 +177,7 @@ processCelFile = function(celFilePath, annotationPackageName, probeSummaryPackag
       #exonArrayTarget = "probeset"
       exonArrayTarget = "core"
 
-    if (grepl("^pd\\.hta\\.2\\.0", annotationPackageName))
-    {
+    if (grepl("^pd\\.hta\\.2\\.0", annotationPackageName) | annotationPackageName == "pd.clariom.d.human") {
       data = getDataForHtaArray(celFilePath, affyExpressionFS, exonArrayTarget, verbose)
     } else {
       data = getDataForMostArrayTypes(celFilePath, affyExpressionFS, exonArrayTarget, verbose)
@@ -227,7 +226,7 @@ processCelFile = function(celFilePath, annotationPackageName, probeSummaryPackag
     {
       tmp = index[(binsize * i):min(binsize * i + binsize, length(my))]
       tmpSd = sig(y=my[tmp], m=m1[tmp], verbose=verbose)
-      y_norm[tmp] = ((my[tmp] - m1[tmp]) / tmpSd)
+      y_norm[tmp] = (my[tmp] - m1[tmp]) / as.vector(tmpSd)
     }
 
     bin = assign_bin(y=m1, nbins=nbins, verbose=verbose)
