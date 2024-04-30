@@ -38,9 +38,15 @@ UPC_RNASeq = function(inFilePattern, annotationFilePath=NA, outFilePath=NA, mode
       stop("Less than half of the annotations overlap with the data values.")
 
     data = data[commonRowNames, , drop=FALSE]
-    annotationData = annotationData[commonRowNames,]
-    lengths = as.numeric(annotationData[,1])
-    gcContent = as.numeric(annotationData[,2]) / lengths
+    annotationData = annotationData[commonRowNames, , drop=FALSE]
+
+    if (ncol(annotationData) >= 1) {
+      lengths = as.numeric(annotationData[,1])
+    }
+
+    if (ncol(annotationData) >= 2) {
+      gcContent = as.numeric(annotationData[,2]) / lengths
+    }
   }
 
   upcData = apply(data, 2, function(x) {
